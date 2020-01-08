@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Etch-a-Sketch</title>
+  </head>
+  <body>
+    <button class="clear">Clear</button>
+    <div id="container"></div>
+    <script>
+      document.body.onload = createGrid;
+
+      function createGrid() {
+        var i;
+        for (i = 0; i < 256; i++) {
+          var element = document.createElement("div");
+          element.classList.add("square");
+          element.addEventListener("mouseenter", function(e) {
+            e.target.style["background-color"] = `rgb(${Math.floor(
+              Math.random() * 255
+            )}, ${Math.floor(Math.random() * 255)}, ${Math.floor(
+              Math.random() * 255
+            )})`;
+          });
+          document.getElementById("container").appendChild(element);
+        }
+      }
+
+      function clear() {
+        const squares = Array.from(document.querySelectorAll(".filled"));
+        squares.forEach(
+          square => (square.style["background-color"] = "transparent")
+        );
+        var grid = prompt("What size grid?");
+        console.log(grid);
+        container = document.querySelector("#container");
+        container.style["grid-template-columns"] = `repeat(${grid}, 1fr)`;
+        container.style["grid-template-rows"] = `repeat(${grid}, 1fr)`;
+      }
+
+      const button = document.querySelector("button");
+      button.addEventListener("click", clear);
+    </script>
+  </body>
+</html>
